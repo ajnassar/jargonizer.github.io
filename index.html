@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" ng-app="jargonizer">
+<head>
+    <meta charset="UTF-8">
+    <title>Jargonizer</title>
+
+    <!-- Droid Serif font -->
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+
+    <!-- Bootstrap style-->
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- jspos-0.2.2 -->
+    <script src="libs/jspos-0.2.2/lexer.js"></script>
+    <script src="libs/jspos-0.2.2/lexicon.js_"></script>
+    <script src="libs/jspos-0.2.2/POSTagger.js"></script>
+
+    <!-- BootstrapJS and jQuery -->
+    <script src="libs/jquery/jquery-1.11.1.min.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Framework Angularjs -->
+    <script src="libs/angularjs/angular.js"></script>
+    <script src="libs/angularjs/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script src="libs/angularjs/common.js"></script>
+
+    <!-- Scripts -->
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/directives.js"></script>
+
+</head>
+<body>
+    <h2>Business Writing <span>Jargonizer</span></h2>
+    <p>Hello valued collaborators and stakeholders (cross-functional and otherwise)!</p>
+    <p>Welcome to the "Business Writing Jargonizer."</p>
+    <p class="with-top-margin">Wait… what is a jargonizer? We’ve all been on the receiving (and maybe sending) end of an obnoxious, jargon-filled business email. You can find some tips on improving your business writing below, but first we thought it’d be fun to show you what not to do. So, enter some text and the tool will translate it into an absurd business email that you can send to your friends.</p>
+    <p class="with-top-margin">Still not clear? Let's try this: The jargonizer executes a rapid turn-around on a value-added, streamlined, buzzword-rich, corporate-safe, rambling, running-on, and nearly incomprehensible email version of a block of inputed text. Now, on to the action items:</p>
+
+    <div class="popup-background"></div>
+    <div class="popup-holder">
+
+    </div>
+
+    <div ng-controller="mainController" class="main-body" id="mainBody">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ currentDate | date:'EEEE dd, MMM. yyyy'}} - Your New Email
+                <button class="button-basic right" ng-click="reStartJargonize()" ng-show="step == 1">
+                    <span>Jargonize again!</span>
+                </button>
+            </div>
+            <div class="panel-body" ng-show="step == 0">
+                <div class="inner-header">
+                    <label>1. Enter your first name:</label><input type="text" ng-model="firstName" placeholder="Take ownership of your human capital"/>
+                </div>
+                <div class="panel-body-left">
+                    <p style="font-weight: bold;">2. Enter a block of text without any greetings or sign-offs.</p>
+                    <textarea ng-model="textArea" placeholder="Ideate something original, or feel free to honor your favorite thought-leaders by pasting quotes, speeches, or passages of literature."></textarea>
+                    <div class="default-usage-box">
+                        <p>Not sure jargonized business writing is for you?</p>
+                        <a href="javascript:" ng-click="checkOutFiveLessons()">Check out these five great lessons in business writing history.</a>
+                    </div>
+                </div>
+                <div class="panel-body-right">
+                    <div class="right-bottom-block">
+                        <h3>3. Click "Jargonize!" and observe as the tool facilitates a deliverable.</h3>
+                        <p style="display: none">Expect a rapid turn-around on a value-added, streamlined, buzzword-rich, corporate-safe, rambling, running-on, nearly incomprehensible email version of your original text.</p>
+                        <button class="button-basic right" disabled="disabled" ng-disabled="validateInputs()" ng-click="startJargonize()">
+                            <span>Jargonize!</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="zipper"></div>
+            </div>
+            <div class="panel-body" ng-show="step == 1">
+                <div class="sending-client">
+                    <label>To:</label>
+                    <input placeholder="Enter a colleague’s email address" ng-model="clientEmail"/>
+                </div>
+                <div class="inner-header final">
+                    <label>Subject: <compile compile="finallMessageTitle"></compile></label>
+                </div>
+                <div class="centered" compile="finallMessage"></div>
+                <div class="default-usage-box final">
+                    <p>Not sure jargonized business writing is for you?</p>
+                    <a href="javascript:" ng-click="checkOutFiveLessons()">Check out these five great lessons in business writing history.</a>
+                </div>
+                <div class="right-bottom-block final">
+                    <button class="button-basic right" ng-click="sendEmail()">
+                        <span>Send it now</span>
+                    </button>
+                </div>
+                <div class="zipper"></div>
+            </div>
+            <div style="display: none" id="measureMessage" compile="measureMessage"></div>
+        </div>
+    </div>
+    <footer>
+        <span>Like the business writing jargonizer? Feel free to share it. All we ask is that you credit this page. Questions? Concerns? <a href="mailto:jolex@udemy.com">Email us here.</a></span>
+    </footer>
+</body>
+</html>
